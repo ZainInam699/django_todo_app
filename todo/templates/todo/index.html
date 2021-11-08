@@ -1,0 +1,61 @@
+{% extends 'todo/base.html' %}
+{% load static %}
+{% block title %} Home {% endblock title %}
+{% block csslink %}{{block.super}}{% endblock csslink %}
+{% block content %}
+
+    <div class="container">
+        <div class="todo-box">
+            <h1>TO DO APP</h1>
+
+            <!--Item Field -->
+            <div class="todo-form">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{fm.item}}
+                    {% if status %}
+                        <input type="submit" name="submit" value="Update">
+                    {% else %}
+                        <input type="submit" name="submit" value="Add">
+                    {% endif %}
+                    </form>
+            </div>
+            <!--todo-form-->
+            
+            <!--Messages-->
+            {% if messages %}
+            <div class="messages" id="messages">
+                <ul >
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <!--messages-->
+            {% endif %}
+
+            <!--Items-->
+            {% for item in items %}
+            <div class="todo-item">
+                <div class="todo-item-title">
+                    <span class="todo-item-id">{{item.id}}</span>
+                    <h2>{{item}}</h2>
+                </div>
+                <div class="item-operation">
+                    <a href="{% url 'update' item.id %}" title="Update item"><i class="fa fa-edit"></i></a>
+                    <a href="{% url 'delete' item.id %}" title="Delete Item"><i class="fa fa-trash"></i></a>
+                </div>
+                <!--item-operation-->
+            </div>
+            <!--todo-item-->
+            {% endfor %} 
+
+            <!--Clear Items-->
+            {% if items %}
+                <a href="{% url 'clearall' %}" class="clear-btn">Clear all</a>
+            {% endif %}
+            </div>
+        <!--todo box-->
+    </div>
+    <!--conatiner-->
+{% endblock content %}

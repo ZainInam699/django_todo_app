@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+    <link type="text/css" rel="stylesheet" href="{% static 'todo/css/all.min.css' %}">
+    {% block csslink %}<link type="text/css" rel="stylesheet" href="{% static 'todo/css/style.css' %}">{% endblock csslink %}
+    
+</head>
+<body>
+    {% block content %}{% endblock content %}
+
+    <!--FontAwesome Js-->
+    <script type="text/javascript" src="{% static 'todo/js/all.min.js' %}"></script>
+    <script>
+        const messages  = document.getElementById("messages");
+        hidemessage = () => {
+            messages.style.display = "none";
+        }
+        setInterval(hidemessage, 5000);
+    </script>
+</body>
+</html>
